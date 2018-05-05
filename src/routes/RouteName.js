@@ -2,5 +2,7 @@ export default {
   Home: "Home",
   Add: "Add",
   Login: "Login",
-  Camera: "Camera"
+  Camera: "Camera",
+  Simple: "Simple",
+  Voice: "Voice"
 };

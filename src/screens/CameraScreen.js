@@ -15,13 +15,13 @@ let styles = StyleSheet.create({
 export default class CameraScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerStyle: styles.header,
-    headerTitle: <Text style={styles.title}>Login</Text>
+    headerTitle: <Text style={styles.title}>Camera</Text>
   });
 
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Details Screen</Text>
+        <Text>Camera Screen</Text>
       </View>
     );
   }

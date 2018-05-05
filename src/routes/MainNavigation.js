@@ -1,16 +1,17 @@
 import { StackNavigator, TabNavigator, TabBarBottom } from "react-navigation";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
-import AddActivityScreen from "../screens/AddActivityScreen";
 import CameraScreen from "../screens/CameraScreen";
+import SimpleScreen from "../screens//AddActivityScreens/SimpleScreen";
 
 import Colors from "../themes/Colors";
 import Rn from "../routes/RouteName";
+import ActionSheet from "../helpers/actionsheet";
 
-MainNavigation = StackNavigator(
+HomeNavigation = StackNavigator(
   {
     [Rn.Home]: {
       screen: HomeScreen
@@ -19,29 +20,29 @@ MainNavigation = StackNavigator(
   { initialRouteName: Rn.Home }
 );
 
-LoginNavigation = StackNavigator(
+CameraNavigation = StackNavigator(
+  {
+    [Rn.Camera]: {
+      screen: CameraScreen
+    }
+  },
+  {
+    mode: "modal",
+    headerMode: "none"
+  }
+);
+
+TabBar = TabNavigator(
   {
     [Rn.Login]: {
       screen: LoginScreen
-    }
-  },
-  { initialRouteName: Rn.Login }
-);
-
-export default (TabBar = TabNavigator(
-  {
-    [Rn.Home]: {
-      screen: MainNavigation
     },
     [Rn.Add]: {
-      screen: AddActivityScreen,
-      mode: "modal"
+      screen: SimpleScreen
     },
-    [Rn.Camera]: {
-      screen: CameraScreen
-    },
-    [Rn.Login]: {
-      screen: LoginNavigation
+
+    [Rn.Home]: {
+      screen: HomeScreen
     }
   },
   {
@@ -60,6 +61,15 @@ export default (TabBar = TabNavigator(
           return <Ionicons name={iconName} size={40} color={tintColor} />;
         }
         return <Ionicons name={iconName} size={25} color={tintColor} />;
+      },
+      tabBarOnPress: (tab, jumpToIndex) => {
+        if (!tab.focused) {
+          if (tab.scene.index == 1) {
+            ActionSheet.showMenuAddActivity(navigation);
+          } else {
+            tab.jumpToIndex(tab.scene.index);
+          }
+        }
       }
     }),
     swipeEnabled: false,
@@ -72,11 +82,27 @@ export default (TabBar = TabNavigator(
         padding: 0,
         margin: 0
       },
-
+      onTabPress: tab => {
+        // onTabPress stuff here..
+      },
       showLabel: false
     },
     tabBarComponent: TabBarBottom,
     tabBarPosition: "bottom",
     animationEnabled: false
   }
+);
+export default (MainNavigation = StackNavigator(
+  {
+    [Rn.Login]: {
+      screen: TabBar
+    },
+    [Rn.Camera]: {
+      screen: CameraNavigation
+    },
+    [Rn.Simple]: {
+      screen: SimpleScreen
+    }
+  },
+  { initialRouteName: Rn.Login }
 ));

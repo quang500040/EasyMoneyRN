@@ -14,44 +14,16 @@ import Colors from "../themes/Colors";
 import Swiper from "react-native-swiper";
 import ActivityList from "../components/ActivitiyList";
 
-let styles = StyleSheet.create({
-  header: {
-    backgroundColor: Colors.default_blue
-  },
-  title: {
-    fontSize: 16,
-    color: "#fff"
-  },
-  wrapper: {},
-  slide1: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#9DD6EB"
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#97CAE5"
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#92BBD9"
-  },
-  text: {
-    color: "#fff",
-    fontSize: 30,
-    fontWeight: "bold"
-  }
-});
-
 export default class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerStyle: styles.header,
-    headerTitle: <Text style={styles.title}>Activities</Text>
+    headerTitle: <Text style={styles.title}>Activities</Text>,
+    tabBarOnPress: (tab, jumpToIndex) => {
+      if (!tab.focused) {
+        tab.jumpToIndex(tab.scene.index);
+        console.log(tab);
+      }
+    }
   });
 
   constructor(props) {
@@ -89,23 +61,47 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <Swiper
-        horizontal={true}
-        style={styles.wrapper}
-        showsPagination={false}
-        showsHorizontalScrollIndicator={false}
-        showsButtons={false}
-      >
-        <View style={styles.slide1}>
-          <ActivityList />
-        </View>
-        <View style={styles.slide2}>
-          <ActivityList />
-        </View>
-        <View style={styles.slide3}>
-          <ActivityList />
-        </View>
-      </Swiper>
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" />
+        <Swiper
+          horizontal={true}
+          style={styles.wrapper}
+          showsPagination={false}
+          showsHorizontalScrollIndicator={false}
+          showsButtons={false}
+        >
+          <View style={styles.slide}>
+
+            <ActivityList style={styles.flatList} />
+          </View>
+        </Swiper>
+      </View>
     );
   }
 }
+
+let styles = StyleSheet.create({
+  header: {
+    backgroundColor: Colors.default_blue
+  },
+  topPanel: {
+    height: 100
+  },
+  title: {
+    fontSize: 16,
+    color: "#fff"
+  },
+  wrapper: {},
+  slide: {
+    paddingTop: 15,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  text: {
+    color: "#fff",
+    fontSize: 30,
+    fontWeight: "bold"
+  },
+  flatList: {}
+});

@@ -13,6 +13,14 @@ target 'easymoney' do
     # Pods for testing
     pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+    pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+    pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
+
+    pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+    pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
   end
 
   target 'easymoneyTests' do

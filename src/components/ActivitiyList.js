@@ -26,6 +26,7 @@ export default class ActivityList extends React.Component {
   }
 
   componentDidMount() {
+    this.ShowAlertWithDelay();
     // this.loadData();
   }
 
@@ -48,25 +49,71 @@ export default class ActivityList extends React.Component {
       });
   }
 
-  onPressItem = item => {};
+  ShowAlertWithDelay() {
+    setTimeout(() => {
+      //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+      var items = [
+        {
+          name: "Morning1",
+          img: "",
+          total: "200000",
+          dominateColor: "#DCCCCE"
+        },
+        {
+          name: "Morning2",
+          img: LocalImage.listImg2,
+          total: "150000",
+          dominateColor: "#233949"
+        },
+        {
+          name: "Afternoon",
+          img: LocalImage.listImg3,
+          total: "210000",
+          dominateColor: "#BEBEBE"
+        },
+        {
+          name: "Evening",
+          img: LocalImage.listImg4,
+          total: "90000",
+          dominateColor: "#ADCAD4"
+        },
+        {
+          name: "Midnight",
+          img: LocalImage.listImg5,
+          total: "230000",
+          dominateColor: "#926A5F"
+        }
+      ];
+
+      this.setState({ data: items });
+    }, 0.5);
+  }
+
+  onPressItem = item => { };
 
   renderItem = ({ item }) => (
     <ActivityItem onPressItem={this.onPressItem} item={item} />
   );
 
   render() {
+    const { loading, data, page, seed, error, refreshing } = this.state;
+
     var items = [
-      { name: "Hiển thị tất cả", img: LocalImage.listImg1 },
-      { name: "Tìm kiếm theo Hero", img: LocalImage.listImg2 },
-      { name: "Tìm kiếm theo tên", img: LocalImage.listImg3 },
-      { name: "Tìm kiếm theo Quality", img: LocalImage.listImg4 },
-      { name: "Tìm kiếm theo giá", img: LocalImage.listImg5 }
+      { name: "Morning", img: "", total: "200000" },
+      { name: "Morning", img: LocalImage.listImg2, total: "150000" },
+      { name: "Afternoon", img: LocalImage.listImg3, total: "210000" },
+      {
+        name: "Evening",
+        img: LocalImage.listImg4,
+        total: "90000"
+      },
+      { name: "Midnight", img: LocalImage.listImg5, total: "230000" }
     ];
 
     return (
       <View style={{ flex: 1 }}>
         <FlatList
-          data={items}
+          data={this.state.data}
           renderItem={this.renderItem}
           keyExtractor={item => item.name}
         />
